@@ -72,10 +72,10 @@ def load_data():
 
 
 def objective(trial):
-    lr = trial.suggest_float("lr", 0.001, 0.004, log=True)
-    batch_size = trial.suggest_categorical("batch_size", [8])
-    num_filters = trial.suggest_categorical("num_filters", [32, 48])
-    num_epochs = trial.suggest_int("num_epochs", 7, 9)
+    lr = trial.suggest_float("lr", 0.0015, 0.0020, log=True)
+    batch_size = 8
+    num_filters = 48
+    num_epochs = trial.suggest_int("num_epochs", 9, 10)
 
     device = torch.device("cuda" if cuda.is_available() else "cpu")
     torch.cuda.empty_cache()

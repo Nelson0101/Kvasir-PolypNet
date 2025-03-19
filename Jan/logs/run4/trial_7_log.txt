@@ -1,0 +1,8 @@
+Trial 7 started at 2025-03-20 00:46:51.173904
+Params: {'lr': 0.0017757091151419436, 'num_epochs': 9}
+
+Epoch 1/9, Train Loss: 0.4848, Train Acc: 0.7708, Val Loss: 0.4003, Val Acc: 0.8330
+Epoch 2/9, Train Loss: 0.4011, Train Acc: 0.8282, Val Loss: 0.3963, Val Acc: 0.8180
+Epoch 3/9, Train Loss: 0.3708, Train Acc: 0.8448, Val Loss: 0.3331, Val Acc: 0.8720
+Epoch 4/9, Train Loss: 0.3534, Train Acc: 0.8587, Val Loss: 0.3261, Val Acc: 0.8690
+Pruned at Epoch 5

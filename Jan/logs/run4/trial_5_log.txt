@@ -1,0 +1,4 @@
+Trial 5 started at 2025-03-20 00:45:06.012261
+Params: {'lr': 0.0016668081565206472, 'num_epochs': 10}
+
+Pruned at Epoch 1
