@@ -1,7 +1,0 @@
-numpy
-kagglehub
-torch
-torchvision
-matplotlib
-opencv-python
-pandas

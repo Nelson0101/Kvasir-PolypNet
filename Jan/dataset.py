@@ -4,6 +4,7 @@ import torch
 import numpy as np
 from PIL import Image
 
+
 class PolypDataset(Dataset):
     def __init__(self, images, labels):
         if len(images) != len(labels):
@@ -11,10 +12,12 @@ class PolypDataset(Dataset):
 
         self.images = images
         self.labels = labels
-        self.transform = transforms.Compose([
-            transforms.Resize((676, 650)),
-            transforms.ToTensor()
-        ])
+        self.transform = transforms.Compose(
+            [
+                transforms.Resize((224, 224)),
+                transforms.ToTensor(),
+            ]
+        )
 
     def __len__(self):
         return len(self.images)
@@ -22,11 +25,11 @@ class PolypDataset(Dataset):
     def __getitem__(self, idx):
         image = self.images[idx]
         label = self.labels[idx]
-        
+
         if isinstance(image, np.ndarray):
             image = Image.fromarray(image)
-        
+
         image = self.transform(image)
         label = torch.tensor(label, dtype=torch.long)
-        
+
         return image, label
