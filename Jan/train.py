@@ -2,7 +2,9 @@ import torch
 from torch import amp
 
 
-def train_one_epoch(model, dataloader, optimizer, criterion, device, use_amp=False):
+def train_one_epoch(
+    model, dataloader, optimizer, criterion, device, epoch, use_amp=False
+):
     model.train()
     scaler = amp.GradScaler("cuda") if use_amp else None
     running_loss = 0.0
@@ -19,6 +21,8 @@ def train_one_epoch(model, dataloader, optimizer, criterion, device, use_amp=Fal
                 outputs = model(images)
                 loss = criterion(outputs, labels)
             scaler.scale(loss).backward()
+            scaler.unscale_(optimizer)
+            torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
             scaler.step(optimizer)
             scaler.update()
         else:
@@ -31,6 +35,11 @@ def train_one_epoch(model, dataloader, optimizer, criterion, device, use_amp=Fal
         _, predicted = torch.max(outputs, 1)
         total += labels.size(0)
         correct += (predicted == labels).sum().item()
+
+        if i == 0:
+            print(
+                f"Epoch {epoch+1} - Loss: {loss.item():.4f}, Preds: {predicted[:5]}, Labels: {labels[:5]}"
+            )
 
         if (i + 1) % 50 == 0:
             print(f"Batch {i + 1}/{num_batches}, Loss: {loss.item():.4f}")

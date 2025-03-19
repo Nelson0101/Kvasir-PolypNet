@@ -72,10 +72,10 @@ def load_data():
 
 
 def objective(trial):
-    lr = trial.suggest_float("lr", 0.003, 0.005, log=True)
+    lr = trial.suggest_float("lr", 0.001, 0.004, log=True)
     batch_size = trial.suggest_categorical("batch_size", [8])
     num_filters = trial.suggest_categorical("num_filters", [32, 48])
-    num_epochs = trial.suggest_int("num_epochs", 6, 8)
+    num_epochs = trial.suggest_int("num_epochs", 7, 9)
 
     device = torch.device("cuda" if cuda.is_available() else "cpu")
     torch.cuda.empty_cache()
@@ -104,7 +104,7 @@ def objective(trial):
 
     for epoch in range(num_epochs):
         train_loss, train_accuracy = train_one_epoch(
-            model, train_loader, optimizer, criterion, device, use_amp=True
+            model, train_loader, optimizer, criterion, device, epoch, use_amp=True
         )
         val_loss, val_accuracy = evaluate(model, val_loader, criterion, device)
 

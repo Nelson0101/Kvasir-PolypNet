@@ -1,0 +1,6 @@
+Trial 8 started at 2025-03-20 00:12:55.517516
+Params: {'lr': 0.0012168661217748715, 'batch_size': 8, 'num_filters': 48, 'num_epochs': 9}
+
+Epoch 1/9, Train Loss: 0.4781, Train Acc: 0.7813, Val Loss: 0.3833, Val Acc: 0.8240
+Epoch 2/9, Train Loss: 0.3924, Train Acc: 0.8336, Val Loss: 0.5261, Val Acc: 0.8160
+Pruned at Epoch 3
