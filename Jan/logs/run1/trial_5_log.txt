@@ -1,0 +1,6 @@
+Trial 5 started at 2025-03-19 23:07:39.577737
+Params: {'lr': 0.0027377286605359545, 'batch_size': 16, 'num_filters': 32, 'num_epochs': 5}
+
+Epoch 1/5, Train Loss: 0.4668, Train Acc: 0.7752, Val Loss: 0.4024, Val Acc: 0.8000
+Epoch 2/5, Train Loss: 0.4016, Train Acc: 0.8194, Val Loss: 0.3891, Val Acc: 0.8360
+Epoch 3/5, Train Loss: 0.3851, Train Acc: 0.8294, Val Loss: 0.3556, Val Acc: 0.8600

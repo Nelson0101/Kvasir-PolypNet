@@ -1,0 +1,13 @@
+Run completed at 2025-03-19 23:14:21.178641
+Best Trial: 0, Value: 0.889, Params: {'lr': 0.004499307308215819, 'batch_size': 8, 'num_filters': 32, 'num_epochs': 6}
+Trial 0: Value 0.889, Params {'lr': 0.004499307308215819, 'batch_size': 8, 'num_filters': 32, 'num_epochs': 6}
+Trial 1: Value 0.872, Params {'lr': 0.0011665895853584254, 'batch_size': 8, 'num_filters': 32, 'num_epochs': 5}
+Trial 2: Value 0.5, Params {'lr': 0.004686604970902456, 'batch_size': 8, 'num_filters': 32, 'num_epochs': 6}
+Trial 3: Value 0.853, Params {'lr': 0.003037715248404757, 'batch_size': 8, 'num_filters': 64, 'num_epochs': 5}
+Trial 4: Value 0.868, Params {'lr': 0.0005727883157764078, 'batch_size': 16, 'num_filters': 32, 'num_epochs': 5}
+Trial 5: Value 0.87, Params {'lr': 0.0027377286605359545, 'batch_size': 16, 'num_filters': 32, 'num_epochs': 5}
+Trial 6: Value 0.777, Params {'lr': 0.003827036559553294, 'batch_size': 8, 'num_filters': 64, 'num_epochs': 5}
+Trial 7: Value 0.724, Params {'lr': 0.002218311964307133, 'batch_size': 16, 'num_filters': 64, 'num_epochs': 5}
+Trial 8: Value 0.796, Params {'lr': 0.002116451645658147, 'batch_size': 16, 'num_filters': 64, 'num_epochs': 6}
+Trial 9: Value 0.8, Params {'lr': 0.001807103159752977, 'batch_size': 8, 'num_filters': 32, 'num_epochs': 5}
+

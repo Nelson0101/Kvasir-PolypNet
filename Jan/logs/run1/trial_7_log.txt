@@ -1,0 +1,4 @@
+Trial 7 started at 2025-03-19 23:11:03.582515
+Params: {'lr': 0.002218311964307133, 'batch_size': 16, 'num_filters': 64, 'num_epochs': 5}
+
+Pruned at Epoch 1

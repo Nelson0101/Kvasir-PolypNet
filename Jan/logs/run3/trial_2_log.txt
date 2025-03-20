@@ -1,0 +1,12 @@
+Trial 2 started at 2025-03-19 23:58:17.726168
+Params: {'lr': 0.0027726970158745818, 'batch_size': 8, 'num_filters': 32, 'num_epochs': 7}
+
+Epoch 1/7, Train Loss: 0.5246, Train Acc: 0.7258, Val Loss: 0.4376, Val Acc: 0.8220
+Epoch 2/7, Train Loss: 0.4063, Train Acc: 0.8213, Val Loss: 0.4791, Val Acc: 0.7810
+Epoch 3/7, Train Loss: 0.3828, Train Acc: 0.8380, Val Loss: 0.5675, Val Acc: 0.7810
+Epoch 4/7, Train Loss: 0.3579, Train Acc: 0.8486, Val Loss: 0.3486, Val Acc: 0.8510
+Epoch 5/7, Train Loss: 0.3422, Train Acc: 0.8603, Val Loss: 0.3353, Val Acc: 0.8490
+Epoch 6/7, Train Loss: 0.3225, Train Acc: 0.8712, Val Loss: 0.3005, Val Acc: 0.8890
+Epoch 7/7, Train Loss: 0.3097, Train Acc: 0.8794, Val Loss: 0.6070, Val Acc: 0.7890
+Trial 2 finished - Best Val Acc: 0.889
+
