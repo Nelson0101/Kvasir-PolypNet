@@ -2,7 +2,6 @@ import os
 
 os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
 
-import numpy as np
 import kagglehub
 import cv2
 from torch.utils.data import DataLoader
@@ -11,8 +10,8 @@ import torch.cuda as cuda
 from torch.nn import CrossEntropyLoss
 from torch.optim import Adam
 import optuna
-from dataset import PolypDataset
-from model import CNN
+from data.PolypDataset import PolypDataset
+from models.Model import CNN
 from train import train_one_epoch, evaluate
 from datetime import datetime
 

@@ -14,7 +14,9 @@ class PolypDataset(Dataset):
         self.labels = labels
         self.transform = transforms.Compose([
                         transforms.Resize((676, 650)),  # Ensure consistent image size
-                        transforms.ToTensor()  # Convert to tensor with shape [C, H, W]
+                        transforms.Grayscale(num_output_channels=1),
+                        transforms.ToTensor(), # Convert to tensor with shape [C, H, W]
+                        transforms.Normalize(mean=0.5, std=0.1)
                         ])
     def __len__(self):
         return len(self.images)
