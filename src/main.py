@@ -14,6 +14,7 @@ from data.PolypDataset import PolypDataset
 from models.Model import CNN
 from train import train_one_epoch, evaluate
 from datetime import datetime
+from data.DataPreprocessor import  DataPreprocessor
 
 # Debug CUDA setup
 print(f"CUDA available: {torch.cuda.is_available()}")
@@ -27,47 +28,7 @@ path = kagglehub.dataset_download("heartzhacker/n-clahe")
 main_path = path + "/dataset/n-clahe"
 
 
-def load_data():
-    train_images_polyp = []
-    train_images_normal = []
-    val_images_normal = []
-    val_images_polyp = []
 
-    print(f"Loading data from: {main_path}")
-    for subdirectory in os.listdir(main_path):
-        if subdirectory == ".DS_Store":
-            continue
-        is_val = subdirectory == "val"
-        subdirectory_path = os.path.join(main_path, subdirectory)
-
-        print(f"Scanning subdirectory: {subdirectory_path}")
-        for sub_subdirectory in os.listdir(subdirectory_path):
-            if sub_subdirectory == ".DS_Store":
-                continue
-            sub_subdirectory_path = os.path.join(subdirectory_path, sub_subdirectory)
-
-            print(f"Processing: {sub_subdirectory_path}")
-            for filename in os.listdir(sub_subdirectory_path):
-                img_path = os.path.join(sub_subdirectory_path, filename)
-                img = cv2.imread(img_path)
-                if img is None:
-                    print(f"Failed to load: {img_path}")
-                    continue
-
-                if sub_subdirectory == "polyps":
-                    (val_images_polyp if is_val else train_images_polyp).append(img)
-                elif sub_subdirectory == "normal-cecum":
-                    (val_images_normal if is_val else train_images_normal).append(img)
-                else:
-                    print(f"Unexpected subdirectory: {sub_subdirectory}")
-
-    train_images = train_images_polyp + train_images_normal
-    val_images = val_images_polyp + val_images_normal
-    train_labels = [1] * len(train_images_polyp) + [0] * len(train_images_normal)
-    val_labels = [1] * len(val_images_polyp) + [0] * len(val_images_normal)
-
-    print(f"Loaded - Train: {len(train_images)} images, Val: {len(val_images)} images")
-    return train_images, train_labels, val_images, val_labels
 
 
 def objective(trial):
@@ -80,7 +41,7 @@ def objective(trial):
     torch.cuda.empty_cache()
     print(f"Trial {trial.number} - Using device: {device}, Params: {trial.params}")
 
-    train_images, train_labels, val_images, val_labels = load_data()
+    train_images, train_labels, val_images, val_labels = DataPreprocessor(main_path).load_data()
 
     if len(train_images) == 0 or len(val_images) == 0:
         raise ValueError("No images loaded. Check dataset path and file integrity.")
