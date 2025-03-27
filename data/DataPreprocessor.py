@@ -1,12 +1,23 @@
 import os
 import cv2
-
+from data.PolypDataset import  PolypDataset
 
 class DataPreprocessor:
     def __init__(self, main_path):
         self.main_path = main_path
+        self.train_images, self.train_labels, self.val_images, self. val_labels = self._load_data()
 
-    def load_data(self):
+    def create_dataset(self, type, transfrom=None)->PolypDataset:
+
+        if type =="train":
+            return PolypDataset(self.train_images, self.train_labels, transfrom)
+        elif type == "val":
+            return PolypDataset(self.val_images, self.val_labels, transfrom)
+        else:
+            raise ValueError("type must be 'train' or 'val'")
+
+
+    def _load_data(self):
         train_images_polyp = []
         train_images_normal = []
         val_images_normal = []

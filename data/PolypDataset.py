@@ -6,31 +6,24 @@ from PIL import Image  # Import PIL for image conversion
 
 
 class PolypDataset(Dataset):
-    def __init__(self, images, labels):
+    def __init__(self, images, labels, transform=None):
         if len(images) != len(labels):
             raise ValueError("images and labels must be the same length")
 
         self.images = images
         self.labels = labels
-        self.transform = transforms.Compose([
-                        transforms.Resize((676, 650)),  # Ensure consistent image size
-                        transforms.Grayscale(num_output_channels=1),
-                        transforms.ToTensor(), # Convert to tensor with shape [C, H, W]
-                        transforms.Normalize(mean=0.5, std=0.1)
-                        ])
+        self.transform = transform or transforms.ToTensor()
     def __len__(self):
         return len(self.images)
 
     def __getitem__(self, idx):
         image = self.images[idx]
         label = self.labels[idx]
-        label = torch.tensor(label, dtype=torch.long).squeeze()
 
-        # Convert NumPy array to PIL Image before applying transforms
         if isinstance(image, np.ndarray):
             image = Image.fromarray(image)  # Convert NumPy to PIL Image
 
-        image = self.transform(image)  # Apply transformations
+        image = self.transform(image)  # Apply transform (guaranteed to exist)
         label = torch.tensor(label, dtype=torch.long)
 
         return image, label

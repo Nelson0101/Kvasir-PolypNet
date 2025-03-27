@@ -1,9 +1,5 @@
 import os
-
-os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
-
 import kagglehub
-import cv2
 from torch.utils.data import DataLoader
 import torch
 import torch.cuda as cuda
@@ -15,6 +11,11 @@ from models.Model import CNN
 from train import train_one_epoch, evaluate
 from datetime import datetime
 from data.DataPreprocessor import  DataPreprocessor
+from torchvision import transforms
+os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
+
+# ------- CONSTANTS -------
+LOG_FOLDER = '../results/logs/'
 
 # Debug CUDA setup
 print(f"CUDA available: {torch.cuda.is_available()}")
@@ -27,8 +28,12 @@ else:
 path = kagglehub.dataset_download("heartzhacker/n-clahe")
 main_path = path + "/dataset/n-clahe"
 
-
-
+transform = transforms.Compose([
+    transforms.Resize((676, 650)),  # Ensure consistent image size
+    transforms.Grayscale(num_output_channels=1),
+    transforms.ToTensor(),  # Convert to tensor with shape [C, H, W]
+    transforms.Normalize(mean=0.5, std=0.1)
+])
 
 
 def objective(trial):
@@ -41,13 +46,12 @@ def objective(trial):
     torch.cuda.empty_cache()
     print(f"Trial {trial.number} - Using device: {device}, Params: {trial.params}")
 
-    train_images, train_labels, val_images, val_labels = DataPreprocessor(main_path).load_data()
-
-    if len(train_images) == 0 or len(val_images) == 0:
+    dataPreprocessor = DataPreprocessor(main_path)
+    train_dataset= dataPreprocessor.create_dataset("train", transform)
+    val_dataset = dataPreprocessor.create_dataset("val", transform)
+    if len(train_dataset) == 0 or len(val_dataset) == 0:
         raise ValueError("No images loaded. Check dataset path and file integrity.")
 
-    train_dataset = PolypDataset(train_images, train_labels)
-    val_dataset = PolypDataset(val_images, val_labels)
     train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
     val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False)
 
@@ -56,7 +60,7 @@ def objective(trial):
     optimizer = Adam(model.parameters(), lr=lr)
 
     best_val_accuracy = 0.0
-    log_file = f"trial_{trial.number}_log.txt"
+    log_file = f"{LOG_FOLDER}trial_{trial.number}_log.txt"
 
     with open(log_file, "a") as f:
         f.write(f"Trial {trial.number} started at {datetime.now()}\n")
