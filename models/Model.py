@@ -13,6 +13,7 @@ class CNN(nn.Module):
                 stride=1,
                 padding=1,
             ),
+            nn.BatchNorm2d(num_filters),
             nn.ReLU(),
             nn.MaxPool2d(kernel_size=2, stride=2),
             nn.Conv2d(
@@ -22,6 +23,7 @@ class CNN(nn.Module):
                 stride=1,
                 padding=1,
             ),
+            nn.BatchNorm2d(num_filters * 2),
             nn.ReLU(),
             nn.MaxPool2d(kernel_size=2, stride=2),
             nn.Conv2d(
@@ -31,6 +33,7 @@ class CNN(nn.Module):
                 stride=1,
                 padding=1,
             ),
+            nn.BatchNorm2d(num_filters * 4),
             nn.ReLU(),
             nn.MaxPool2d(kernel_size=2, stride=2),
         )
