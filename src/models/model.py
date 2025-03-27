@@ -3,7 +3,7 @@ from torch import nn
 
 
 class CNN(nn.Module):
-    def __init__(self, num_classes=2, num_filters=32, in_channels= 1):
+    def __init__(self, num_classes=2, num_filters=32, in_channels=1):
         super().__init__()
         self.conv_layers = nn.Sequential(
             nn.Conv2d(
@@ -37,7 +37,9 @@ class CNN(nn.Module):
             nn.ReLU(),
             nn.MaxPool2d(kernel_size=2, stride=2),
         )
-        self.global_avg_pool = nn.AdaptiveAvgPool2d((1, 1)) # reduces dimension of image to 1x1
+        self.global_avg_pool = nn.AdaptiveAvgPool2d(
+            (1, 1)
+        )  # reduces dimension of image to 1x1
         self.ff_layers = nn.Sequential(
             nn.Linear(num_filters * 4, 64),
             nn.ReLU(),

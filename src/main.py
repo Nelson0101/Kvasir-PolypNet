@@ -6,16 +6,20 @@ import torch.cuda as cuda
 from torch.nn import CrossEntropyLoss
 from torch.optim import Adam
 import optuna
-from data.PolypDataset import PolypDataset
-from models.Model import CNN
+from data.polyp_dataset import PolypDataset
+from models.model import CNN
 from train import train_one_epoch, evaluate
 from datetime import datetime
-from data.DataPreprocessor import  DataPreprocessor
+from data.data_preprocessor import DataPreprocessor
 from torchvision import transforms
+
 os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
 
 # ------- CONSTANTS -------
-LOG_FOLDER = '../results/logs/'
+LOG_FOLDER = "../results/logs/"
+MODEL_FOLDER = "../models/"
+os.makedirs(LOG_FOLDER, exist_ok=True)
+os.makedirs(MODEL_FOLDER, exist_ok=True)
 
 # Debug CUDA setup
 print(f"CUDA available: {torch.cuda.is_available()}")
@@ -28,26 +32,30 @@ else:
 path = kagglehub.dataset_download("heartzhacker/n-clahe")
 main_path = path + "/dataset/n-clahe"
 
-transform = transforms.Compose([
-    transforms.Resize((676, 650)),  # Ensure consistent image size
-    transforms.Grayscale(num_output_channels=1),
-    transforms.ToTensor(),  # Convert to tensor with shape [C, H, W]
-    transforms.Normalize(mean=0.5, std=0.1)
-])
+transform = transforms.Compose(
+    [
+        transforms.Resize((676, 650)),
+        transforms.Grayscale(num_output_channels=1),
+        transforms.RandomRotation(10),
+        transforms.RandomHorizontalFlip(),
+        transforms.ToTensor(),
+        transforms.Normalize(mean=0.5, std=0.1),
+    ]
+)
 
 
 def objective(trial):
-    lr = trial.suggest_float("lr", 0.0015, 0.0020, log=True)
+    lr = trial.suggest_float("lr", 0.0001, 0.01, log=True)
     batch_size = 8
     num_filters = 48
-    num_epochs = trial.suggest_int("num_epochs", 9, 10)
+    num_epochs = trial.suggest_int("num_epochs", 5, 15)
 
     device = torch.device("cuda" if cuda.is_available() else "cpu")
     torch.cuda.empty_cache()
     print(f"Trial {trial.number} - Using device: {device}, Params: {trial.params}")
 
     dataPreprocessor = DataPreprocessor(main_path)
-    train_dataset= dataPreprocessor.create_dataset("train", transform)
+    train_dataset = dataPreprocessor.create_dataset("train", transform)
     val_dataset = dataPreprocessor.create_dataset("val", transform)
     if len(train_dataset) == 0 or len(val_dataset) == 0:
         raise ValueError("No images loaded. Check dataset path and file integrity.")
@@ -79,7 +87,15 @@ def objective(trial):
                 f.write(f"Pruned at Epoch {epoch+1}\n")
             raise optuna.TrialPruned()
 
-        best_val_accuracy = max(best_val_accuracy, val_accuracy)
+        if val_accuracy > best_val_accuracy:
+            best_val_accuracy = val_accuracy
+            torch.save(
+                model.state_dict(), f"{MODEL_FOLDER}trial_{trial.number}_best.pth"
+            )
+            with open(log_file, "a") as f:
+                f.write(
+                    f"Saved best model at Epoch {epoch+1} with Val Acc: {val_accuracy:.4f}\n"
+                )
 
         log_entry = (
             f"Epoch {epoch+1}/{num_epochs}, "
@@ -109,7 +125,6 @@ if __name__ == "__main__":
     for key, value in trial.params.items():
         print(f"    {key}: {value}")
 
-    # Summary log
     with open("optuna_summary.txt", "a") as f:
         f.write(f"Run completed at {datetime.now()}\n")
         f.write(

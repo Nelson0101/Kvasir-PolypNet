@@ -1,0 +1,13 @@
+Run completed at 2025-03-27 20:37:49.466815
+Best Trial: 8, Value: 0.871, Params: {'lr': 0.0017865306073058989, 'num_epochs': 10}
+Trial 0: Value 0.866, Params {'lr': 0.001702922045657924, 'num_epochs': 9}
+Trial 1: Value 0.843, Params {'lr': 0.001646974900252548, 'num_epochs': 9}
+Trial 2: Value 0.866, Params {'lr': 0.0017250685821661573, 'num_epochs': 9}
+Trial 3: Value 0.868, Params {'lr': 0.0018506784002789223, 'num_epochs': 9}
+Trial 4: Value 0.846, Params {'lr': 0.0016320975020369406, 'num_epochs': 10}
+Trial 5: Value 0.802, Params {'lr': 0.0015782927004927793, 'num_epochs': 10}
+Trial 6: Value 0.751, Params {'lr': 0.0015074924647932282, 'num_epochs': 9}
+Trial 7: Value 0.747, Params {'lr': 0.0015776758398113008, 'num_epochs': 9}
+Trial 8: Value 0.871, Params {'lr': 0.0017865306073058989, 'num_epochs': 10}
+Trial 9: Value 0.806, Params {'lr': 0.0018331520779042768, 'num_epochs': 9}
+

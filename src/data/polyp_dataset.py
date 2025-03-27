@@ -13,6 +13,7 @@ class PolypDataset(Dataset):
         self.images = images
         self.labels = labels
         self.transform = transform or transforms.ToTensor()
+
     def __len__(self):
         return len(self.images)
 
