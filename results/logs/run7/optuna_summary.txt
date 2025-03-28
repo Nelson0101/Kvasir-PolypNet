@@ -1,0 +1,14 @@
+Run completed at 2025-03-28 00:40:07.095759
+Best Trial: 4, Value: 0.941, Params: {'lr': 0.0009364785166906385, 'batch_size': 34, 'num_epochs': 14}
+Best model saved to: ../models/best_model.pth
+Trial 0: Value 0.917, Params {'lr': 0.00017106274266399956, 'batch_size': 25, 'num_epochs': 8}
+Trial 1: Value 0.934, Params {'lr': 0.00017896159916118678, 'batch_size': 21, 'num_epochs': 15}
+Trial 2: Value 0.936, Params {'lr': 0.006222740635987962, 'batch_size': 18, 'num_epochs': 10}
+Trial 3: Value 0.896, Params {'lr': 0.0009043929691728384, 'batch_size': 34, 'num_epochs': 6}
+Trial 4: Value 0.941, Params {'lr': 0.0009364785166906385, 'batch_size': 34, 'num_epochs': 14}
+Trial 5: Value 0.861, Params {'lr': 0.001452595218094305, 'batch_size': 41, 'num_epochs': 15}
+Trial 6: Value 0.78, Params {'lr': 0.00040333575837370373, 'batch_size': 56, 'num_epochs': 9}
+Trial 7: Value 0.853, Params {'lr': 0.006073472270124146, 'batch_size': 31, 'num_epochs': 11}
+Trial 8: Value 0.908, Params {'lr': 0.00016504580701943094, 'batch_size': 35, 'num_epochs': 14}
+Trial 9: Value 0.877, Params {'lr': 0.008302134275332426, 'batch_size': 55, 'num_epochs': 15}
+
