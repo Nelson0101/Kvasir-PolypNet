@@ -1,21 +1,22 @@
 import os
 import cv2
-from data.PolypDataset import  PolypDataset
+from data.polyp_dataset import PolypDataset
+
 
 class DataPreprocessor:
     def __init__(self, main_path):
         self.main_path = main_path
-        self.train_images, self.train_labels, self.val_images, self. val_labels = self._load_data()
+        self.train_images, self.train_labels, self.val_images, self.val_labels = (
+            self._load_data()
+        )
 
-    def create_dataset(self, type, transfrom=None)->PolypDataset:
-
-        if type =="train":
-            return PolypDataset(self.train_images, self.train_labels, transfrom)
+    def create_dataset(self, type, transform=None) -> PolypDataset:
+        if type == "train":
+            return PolypDataset(self.train_images, self.train_labels, transform)
         elif type == "val":
-            return PolypDataset(self.val_images, self.val_labels, transfrom)
+            return PolypDataset(self.val_images, self.val_labels, transform)
         else:
             raise ValueError("type must be 'train' or 'val'")
-
 
     def _load_data(self):
         train_images_polyp = []
@@ -34,7 +35,9 @@ class DataPreprocessor:
             for sub_subdirectory in os.listdir(subdirectory_path):
                 if sub_subdirectory == ".DS_Store":
                     continue
-                sub_subdirectory_path = os.path.join(subdirectory_path, sub_subdirectory)
+                sub_subdirectory_path = os.path.join(
+                    subdirectory_path, sub_subdirectory
+                )
 
                 print(f"Processing: {sub_subdirectory_path}")
                 for filename in os.listdir(sub_subdirectory_path):
@@ -47,7 +50,9 @@ class DataPreprocessor:
                     if sub_subdirectory == "polyps":
                         (val_images_polyp if is_val else train_images_polyp).append(img)
                     elif sub_subdirectory == "normal-cecum":
-                        (val_images_normal if is_val else train_images_normal).append(img)
+                        (val_images_normal if is_val else train_images_normal).append(
+                            img
+                        )
                     else:
                         print(f"Unexpected subdirectory: {sub_subdirectory}")
 
@@ -56,5 +61,7 @@ class DataPreprocessor:
         train_labels = [1] * len(train_images_polyp) + [0] * len(train_images_normal)
         val_labels = [1] * len(val_images_polyp) + [0] * len(val_images_normal)
 
-        print(f"Loaded - Train: {len(train_images)} images, Val: {len(val_images)} images")
+        print(
+            f"Loaded - Train: {len(train_images)} images, Val: {len(val_images)} images"
+        )
         return train_images, train_labels, val_images, val_labels

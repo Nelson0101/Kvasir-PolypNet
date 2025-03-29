@@ -1,4 +1,4 @@
-# Kvasir-PolypNet
+# Kvasir-PolypNet - Polyp Classification Project
 
 ## Project Overview
 
