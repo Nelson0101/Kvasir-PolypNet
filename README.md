@@ -2,9 +2,9 @@
 
 ## Project Overview
 
-This repository contains code and documentation for a classification project as part of the *Data Science in Health* course at Zurich University of Applied Sciences (ZHAW). The goal is to develop a deep learning classifier using PyTorch to distinguish between *normal-cecum* and *polyps* in medical images. The dataset used is the *Clahe Preprocessed Medical Imaging Dataset*, derived from *Kvasir Dataset v2*. [Link](https://www.kaggle.com/datasets/heartzhacker/n-clahe)
+This repository contains code and documentation for a classification project as part of the *Data Science in Health* course at Zurich University of Applied Sciences (ZHAW). The goal is to develop a deep learning classifier using PyTorch to distinguish between *normal-cecum* and *polyps* in medical images. The dataset used is the *Clahe Preprocessed Medical Imaging Dataset. 
 
-## Dataset: Clahe Preprocessed Medical Imaging Dataset
+## [Dataset: Clahe Preprocessed Medical Imaging Dataset](https://www.kaggle.com/datasets/heartzhacker/n-clahe)
 
 This dataset is based on the widely used Kvasir Dataset, specifically focusing on two classes: **normal-cecum** and **polyps**. Several preprocessing techniques and augmentations were applied to enhance its utility for medical imaging classification.
 
