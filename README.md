@@ -1,5 +1,5 @@
 # Kvasir-PolypNet - Polyp Classification Project
-
+Please find our detailed report here: https://github.com/Nelson0101/Kvasir-PolypNet/blob/main/report/Kvasir-PolypNet-Report.pdf
 ## Project Overview
 
 This repository contains code and documentation for a classification project as part of the *Data Science in Health* course at Zurich University of Applied Sciences (ZHAW). The goal is to develop a deep learning classifier using PyTorch to distinguish between *normal-cecum* and *polyps* in medical images. The dataset used is the Clahe Preprocessed Medical Imaging Dataset. 
