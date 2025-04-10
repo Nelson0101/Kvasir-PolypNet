@@ -18,8 +18,9 @@ This dataset is based on the widely used Kvasir Dataset, specifically focusing o
 Accuracy: 92.3%
 
 ## Instructions
-1. Install all dependencies in requirements.txt
-2. Run the desired script
+1. Clone Repository to your machine
+2. Install all dependencies in requirements.txt
+3. Run the desired script
 
 
 ## Contributors
