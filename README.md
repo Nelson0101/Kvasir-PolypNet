@@ -15,6 +15,7 @@ This dataset is based on the widely used Kvasir Dataset, specifically focusing o
 
 ## Results
 <img width="570" alt="cm" src="https://github.com/user-attachments/assets/533b6d8b-2d7e-4712-8e87-2742eae454e6" />
+
 Accuracy: 93.4%
 
 ## Instructions
